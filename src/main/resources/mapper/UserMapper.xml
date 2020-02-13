@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.hope.dao.UserDao">
+    <resultMap id="BaseResultMap" type="com.example.hope.bean.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_picture" property="userPicture" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_tel" property="userTel" jdbcType="VARCHAR"/>
+        <result column="user_pwd" property="userPwd" jdbcType="VARCHAR"/>
+        <result column="user_address" property="userAddress" jdbcType="VARCHAR"/>
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
+        <result column="user_birthday" property="userBirthday" jdbcType="TIMESTAMP"/>
+        <result column="user_autograph" property="userAutograph" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <parameterMap id="User" type="com.example.hope.bean.User"/>
+
+    <select id="selectUser" parameterMap="User" resultMap="BaseResultMap">
+        select * from user_tb where user_tel=#{userTel} and user_pwd=#{userPwd}
+    </select>
+
+    <insert id="insertUser" parameterMap="User">
+        insert into user_tb(user_name,user_tel,user_pwd)values (#{userTel},#{userTel},#{userPwd});
+    </insert>
+
+    <update id="updateUserPwd" parameterMap="User">
+        update user_tb set user_pwd=#{userPwd} where user_tel=#{userTel}
+    </update>
+
+    <update id="updatePhone" parameterType="Map">
+        update user_tb set user_tel=#{newPhone} where user_tel=#{phone}
+    </update>
+
+    <update id="updateUser" parameterMap="User">
+        update user_tb
+        set user_name=#{userName},user_sex=#{userSex},user_address=#{userAddress},user_birthday=#{userBirthday}
+        where user_id=#{userId}
+    </update>
+</mapper>
