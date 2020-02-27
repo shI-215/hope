@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.hope.dao.ImageDao">
+    <resultMap id="BaseResultMap" type="com.example.hope.bean.Image">
+        <id column="img_id" property="imgId" jdbcType="INTEGER"/>
+        <result column="img_path" property="imgPath" jdbcType="VARCHAR"/>
+        <result column="img_type" property="imgType" jdbcType="INTEGER"/>
+        <!-- 关联活动表-->
+        <association property="active" resultMap="ActiveResultMap"/>
+    </resultMap>
+
+    <resultMap id="ActiveResultMap" type="com.example.hope.bean.Active">
+        <id column="act_id" property="actId" jdbcType="INTEGER"/>
+        <result column="act_name" property="actName" jdbcType="VARCHAR"/>
+        <result column="act_describe" property="actDescribe" jdbcType="VARCHAR"/>
+        <result column="act_address" property="actAddress" jdbcType="VARCHAR"/>
+        <result column="act_start" property="actStart" jdbcType="VARCHAR"/>
+        <result column="act_status" property="actStatus" jdbcType="INTEGER"/>
+        <result column="act_ok" property="actOk" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <parameterMap id="Image" type="com.example.hope.bean.Image"/>
+
+    <insert id="insertImage" parameterType="java.util.List">
+        insert into image_tb (img_path,img_type,act_id)values
+        <!--item就是List里每一项的对象名，要用","分割每一条数据，最后要";"结尾-->
+        <foreach collection="list" item="image" separator="," close=";">
+            (#{image.imgPath},#{image.imgType},#{image.active.actId})
+        </foreach>
+    </insert>
+
+    <!--    <delete id="delete" parameterType="java.lang.Integer">-->
+    <!--        delete from active_tb where act_id=#{actId}-->
+    <!--    </delete>-->
+
+    <select id="selectAllImage" resultMap="BaseResultMap">
+        select a.act_id,a.act_name, i.img_path from active_tb a,image_tb i where a.act_id=i.act_id and a.act_status=1 and a.act_ok=1 and i.img_type=1
+    </select>
+
+    <select id="selectMyImage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from active_tb a,image_tb i
+        where a.act_id=i.act_id and a.user_id=#{uId}
+    </select>
+
+    <!--    <select id="selectAll" parameterMap="Active" resultMap="BaseResultMap">-->
+    <!--        select * from active_tb-->
+    <!--    </select>-->
+</mapper>

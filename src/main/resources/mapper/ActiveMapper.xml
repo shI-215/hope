@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.hope.dao.ActiveDao">
+    <resultMap id="BaseResultMap" type="com.example.hope.bean.Active">
+        <id column="act_id" property="actId" jdbcType="INTEGER"/>
+        <result column="act_name" property="actName" jdbcType="VARCHAR"/>
+        <result column="act_describe" property="actDescribe" jdbcType="VARCHAR"/>
+        <result column="act_address" property="actAddress" jdbcType="VARCHAR"/>
+        <result column="act_start" property="actStart" jdbcType="VARCHAR"/>
+        <result column="act_status" property="actStatus" jdbcType="INTEGER"/>
+        <result column="act_ok" property="actOk" jdbcType="INTEGER"/>
+        <!-- 关联用户表-->
+        <association property="user" resultMap="UserResultMap"/>
+    </resultMap>
+
+    <resultMap id="UserResultMap" type="com.example.hope.bean.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_picture" property="userPicture" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_tel" property="userTel" jdbcType="VARCHAR"/>
+        <result column="user_pwd" property="userPwd" jdbcType="VARCHAR"/>
+        <result column="user_address" property="userAddress" jdbcType="VARCHAR"/>
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
+        <result column="user_birthday" property="userBirthday" jdbcType="TIMESTAMP"/>
+        <result column="user_autograph" property="userAutograph" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <parameterMap id="Active" type="com.example.hope.bean.Active"/>
+
+    <insert id="insert" parameterMap="Active" useGeneratedKeys="true" keyProperty="actId">
+    insert into active_tb (act_name,act_describe,act_address,user_id)values (#{actName},#{actDescribe},#{actAddress},#{user.userId});
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from active_tb where act_id=#{actId}
+    </delete>
+
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from active_tb where act_id=#{actId}
+    </select>
+
+    <select id="selectAll" parameterMap="Active" resultMap="BaseResultMap">
+        select * from active_tb
+    </select>
+</mapper>

@@ -14,14 +14,16 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
-    private JsonResult jsonResult = new JsonResult();
     @Autowired
     private UserService userService;
+    private JsonResult jsonResult = new JsonResult();
 
     @PostMapping("/login")
     public JsonResult Login(@RequestBody User user) {
+        System.out.println(user.toString());
         User user1 = userService.login(user);
         if (null != user1) {
+            System.out.println(JSON.toJSONString(user1));
             jsonResult.setJsonResult(Application.SUCCESS_CODE, JSON.toJSONString(user1));
         } else {
             jsonResult.setJsonResult(Application.FAILED_CODE, "登录失败");
