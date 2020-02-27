@@ -32,15 +32,15 @@ public class FileController {
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             System.out.println("文件名为：" + fileName + " 文件类型：" + suffixName);
             if (suffixName.equals(".png") || suffixName.equals(".jpg")) {
-                String path = filePath + (System.currentTimeMillis() + suffixName);
+                String path = System.currentTimeMillis() + suffixName;
                 System.out.println(path);
-                File dest = new File(path);
+                File dest = new File(filePath + path);
                 if (!dest.getParentFile().exists()) {
                     dest.mkdirs();
                 }
                 file.transferTo(dest);
                 Map<String, Object> map = new HashMap<>();
-                map.put("path", path);
+                map.put("path", "/file/" + path);
                 map.put("type", 1);
                 images.add(map);
                 System.out.println(images.toString());
@@ -82,15 +82,15 @@ public class FileController {
                 String fileName = files[i].getOriginalFilename();
                 System.out.println(fileName);
                 String suffixName = fileName.substring(fileName.lastIndexOf("."));
-                String path = filePath + (System.currentTimeMillis() + suffixName);
+                String path = System.currentTimeMillis() + suffixName;
                 System.out.println(path);
-                File dest = new File(path);
+                File dest = new File(filePath + path);
                 if (!dest.exists()) {
                     dest.mkdirs();
                 }
                 files[i].transferTo(dest);
                 Map<String, Object> map = new HashMap<>();
-                map.put("path", path);
+                map.put("path", "/file/" + path);
                 map.put("type", 2);
                 images.add(map);
             }
