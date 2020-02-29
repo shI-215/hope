@@ -15,4 +15,8 @@ public interface ImageDao {
     List<Image> selectAllImage();
 
     List<Image> selectMyImage(int uId);
+
+    List<Image> selectAllMyImage(int uId);
+
+    List<Image> selectActiveImage(int actId);
 }

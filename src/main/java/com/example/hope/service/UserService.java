@@ -14,4 +14,6 @@ public interface UserService {
     boolean alterPhone(Map<String, Object> map);
 
     boolean alterUser(User user);
+
+    User getImage(Integer userId);
 }

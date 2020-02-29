@@ -19,4 +19,6 @@ public interface UserDao {
     boolean updatePhone(Map<String, Object> map);
 
     boolean updateUser(User user);
+
+    User selectUserImage(Integer userId);
 }

@@ -26,4 +26,14 @@ public class ImageServiceImpl implements ImageService {
     public List<Image> lookMyImage(int uId) {
         return imageDao.selectMyImage(uId);
     }
+
+    @Override
+    public List<Image> lookAllMyImage(int uId) {
+        return imageDao.selectAllMyImage(uId);
+    }
+
+    @Override
+    public List<Image> lookActiveImage(int actId) {
+        return imageDao.selectActiveImage(actId);
+    }
 }

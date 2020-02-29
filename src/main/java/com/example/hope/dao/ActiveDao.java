@@ -1,7 +1,6 @@
 package com.example.hope.dao;
 
 import com.example.hope.bean.Active;
-import com.example.hope.bean.Image;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +16,4 @@ public interface ActiveDao {
     Active selectById(int actId);
 
     List<Active> selectAll();
-
-    List<Image> selectAllActive();
 }

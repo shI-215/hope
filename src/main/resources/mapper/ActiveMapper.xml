@@ -36,7 +36,9 @@
     </delete>
 
     <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select * from active_tb where act_id=#{actId}
+        select a.*, u.user_id, u.user_picture
+        from active_tb a,user_tb u
+        where a.act_id=#{actId} and a.user_id=u.user_id
     </select>
 
     <select id="selectAll" parameterMap="Active" resultMap="BaseResultMap">

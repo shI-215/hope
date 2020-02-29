@@ -42,4 +42,15 @@ public class ImageController {
         }
         return jsonResult;
     }
+
+    @GetMapping("/lookAllMyImage")
+    public JsonResult lookAllMyImage(@RequestParam int uId) {
+        List<Image> iList = imageService.lookAllMyImage(uId);
+        if (iList.size() != 0) {
+            jsonResult.setJsonResult(Application.SUCCESS_CODE, JSON.toJSONString(iList));
+        } else {
+            jsonResult.setJsonResult(Application.FAILED_CODE, "查询失败");
+        }
+        return jsonResult;
+    }
 }

@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
     public boolean alterUser(User user) {
         return userDao.updateUser(user);
     }
+
+    @Override
+    public User getImage(Integer userId) {
+        return userDao.selectUserImage(userId);
+    }
 }

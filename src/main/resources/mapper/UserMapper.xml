@@ -19,6 +19,10 @@
         select * from user_tb where user_tel=#{userTel} and user_pwd=#{userPwd}
     </select>
 
+    <select id="selectUserImage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select user_id,user_picture from user_tb where user_id=#{userId}
+    </select>
+
     <insert id="insertUser" parameterMap="User">
         insert into user_tb(user_name,user_tel,user_pwd)values (#{userTel},#{userTel},#{userPwd});
     </insert>

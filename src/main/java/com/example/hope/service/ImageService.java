@@ -11,4 +11,8 @@ public interface ImageService {
     List<Image> lookAllImage();
 
     List<Image> lookMyImage(int uId);
+
+    List<Image> lookAllMyImage(int uId);
+
+    List<Image> lookActiveImage(int actId);
 }

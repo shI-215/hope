@@ -6,23 +6,26 @@ import com.example.hope.bean.Active;
 import com.example.hope.bean.Image;
 import com.example.hope.service.ActiveService;
 import com.example.hope.service.ImageService;
+import com.example.hope.service.UserService;
 import com.example.hope.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/active")
 public class ActiveController {
-    private String filePath = "E://Hope/images/";
-    //    private String filePath = "/root/Hope/images/";
+
+    @Autowired
+    private ImageService imageService;
     @Autowired
     private ActiveService activeService;
     @Autowired
-    private ImageService imageService;
+    private UserService userService;
     private JsonResult jsonResult = new JsonResult();
 
     @PostMapping("/release")
@@ -72,10 +75,14 @@ public class ActiveController {
 
     @GetMapping("/look")
     public JsonResult Look(@RequestParam int actId) {
-        System.out.println(actId);
         Active active = activeService.look(actId);
-        if (null != active) {
-            jsonResult.setJsonResult(Application.SUCCESS_CODE, JSON.toJSONString(active));
+        List<Image> iList = imageService.lookActiveImage(actId);
+        if (null != active && iList.size() != 0) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("active", active);
+            map.put("images", iList);
+            System.out.println(JSON.toJSONString(map));
+            jsonResult.setJsonResult(Application.SUCCESS_CODE, JSON.toJSONString(map));
         } else {
             jsonResult.setJsonResult(Application.FAILED_CODE, "查询失败");
         }
