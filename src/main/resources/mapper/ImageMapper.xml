@@ -44,7 +44,7 @@
     <select id="selectAllMyImage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select *
         from active_tb a,image_tb i
-        where a.act_id=i.act_id and a.user_id=#{uId}
+        where a.act_id=i.act_id and a.user_id=#{uId} and i.img_type=1
     </select>
 
     <select id="selectActiveImage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
