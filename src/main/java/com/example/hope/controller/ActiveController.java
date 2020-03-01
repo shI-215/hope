@@ -3,10 +3,11 @@ package com.example.hope.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.hope.Application;
 import com.example.hope.bean.Active;
+import com.example.hope.bean.Help;
 import com.example.hope.bean.Image;
 import com.example.hope.service.ActiveService;
+import com.example.hope.service.HelpService;
 import com.example.hope.service.ImageService;
-import com.example.hope.service.UserService;
 import com.example.hope.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,8 @@ public class ActiveController {
     @Autowired
     private ActiveService activeService;
     @Autowired
-    private UserService userService;
+    private HelpService helpService;
+
     private JsonResult jsonResult = new JsonResult();
 
     @PostMapping("/release")
@@ -74,13 +76,22 @@ public class ActiveController {
     }
 
     @GetMapping("/look")
-    public JsonResult Look(@RequestParam int actId) {
+    public JsonResult Look(@RequestParam("actId") int actId, @RequestParam("userId") int userId) {
         Active active = activeService.look(actId);
         List<Image> iList = imageService.lookActiveImage(actId);
+        Help help = new Help();
+        help.setActId(actId);
+        help.setUserId(userId);
+        int helpId = helpService.get(help);
         if (null != active && iList.size() != 0) {
             Map<String, Object> map = new HashMap<>();
             map.put("active", active);
             map.put("images", iList);
+            if (helpId != 0) {
+                map.put("isJoin", true);
+            } else {
+                map.put("isJoin", false);
+            }
             System.out.println(JSON.toJSONString(map));
             jsonResult.setJsonResult(Application.SUCCESS_CODE, JSON.toJSONString(map));
         } else {
