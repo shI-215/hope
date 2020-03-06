@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     private Integer userId;
+    private String registrationID;
     private String userPicture;
     private String userName;
     private String userTel;
@@ -17,10 +18,11 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
+                ", registrationID='" + registrationID + '\'' +
                 ", userPicture='" + userPicture + '\'' +
                 ", userName='" + userName + '\'' +
-                ", userPwd='" + userPwd + '\'' +
                 ", userTel='" + userTel + '\'' +
+                ", userPwd='" + userPwd + '\'' +
                 ", userAddress='" + userAddress + '\'' +
                 ", userSex='" + userSex + '\'' +
                 ", userBirthday='" + userBirthday + '\'' +
@@ -34,6 +36,14 @@ public class User implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getRegistrationID() {
+        return registrationID;
+    }
+
+    public void setRegistrationID(String registrationID) {
+        this.registrationID = registrationID;
     }
 
     public String getUserPicture() {
@@ -52,20 +62,20 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public String getUserPwd() {
-        return userPwd;
-    }
-
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
-    }
-
     public String getUserTel() {
         return userTel;
     }
 
     public void setUserTel(String userTel) {
         this.userTel = userTel;
+    }
+
+    public String getUserPwd() {
+        return userPwd;
+    }
+
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
     public String getUserAddress() {

@@ -16,4 +16,6 @@ public interface UserService {
     boolean alterUser(User user);
 
     User getImage(Integer userId);
+
+    boolean alterRegistrationID(User user);
 }

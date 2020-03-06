@@ -23,10 +23,25 @@ public class UserController {
         System.out.println(user.toString());
         User user1 = userService.login(user);
         if (null != user1) {
+            user.setUserId(user1.getUserId());
+            System.out.println("客户端：" + user.toString());
             System.out.println(JSON.toJSONString(user1));
+            boolean isLoginOut = userService.alterRegistrationID(user);
             jsonResult.setJsonResult(Application.SUCCESS_CODE, JSON.toJSONString(user1));
         } else {
             jsonResult.setJsonResult(Application.FAILED_CODE, "登录失败");
+        }
+        return jsonResult;
+    }
+
+    @PostMapping("/loginOut")
+    public JsonResult loginOut(@RequestBody User user) {
+        System.out.println(user.toString());
+        boolean isLoginOut = userService.alterRegistrationID(user);
+        if (isLoginOut) {
+            jsonResult.setJsonResult(Application.SUCCESS_CODE, "退出登录成功");
+        } else {
+            jsonResult.setJsonResult(Application.FAILED_CODE, "退出登录失败");
         }
         return jsonResult;
     }

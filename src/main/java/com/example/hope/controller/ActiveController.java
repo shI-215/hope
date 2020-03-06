@@ -8,6 +8,7 @@ import com.example.hope.bean.Image;
 import com.example.hope.service.ActiveService;
 import com.example.hope.service.HelpService;
 import com.example.hope.service.ImageService;
+import com.example.hope.util.JPushUtil;
 import com.example.hope.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -109,5 +110,17 @@ public class ActiveController {
             jsonResult.setJsonResult(Application.FAILED_CODE, "查询失败");
         }
         return jsonResult;
+    }
+
+    //用户推送
+    @GetMapping("/push")
+    public void push() {
+        String[] users = new String[1];
+        Map<String, String> parm = new HashMap<String, String>();
+        //设置提示信息,内容是文章标题
+        parm.put("msg", "收到请联系发送人");
+        parm.put("title", "这里是title");
+//        parm.put("id", users);
+        JPushUtil.jpushAndroidUser(parm, users);
     }
 }

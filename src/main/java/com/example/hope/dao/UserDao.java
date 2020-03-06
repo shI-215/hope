@@ -21,4 +21,6 @@ public interface UserDao {
     boolean updateUser(User user);
 
     User selectUserImage(Integer userId);
+
+    boolean updateRegistrationID(User user);
 }
