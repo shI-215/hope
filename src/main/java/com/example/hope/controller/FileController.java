@@ -23,6 +23,13 @@ public class FileController {
     //    private String filePath = "/root/Hope/images/";
     private static List<Map<String, Object>> images = new ArrayList<>();
 
+    /**
+     * 图片上传
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value = "/upload")//单文件上传
     public JsonResult Upload(@RequestParam("file") MultipartFile file) throws IOException {
         if (file.isEmpty()) {
@@ -73,6 +80,13 @@ public class FileController {
         return jsonResult;
     }
 
+    /**
+     * 证明上传
+     *
+     * @param files
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value = "/uploadMore")//多文件上传
     public JsonResult UploadMore(@RequestParam("file") MultipartFile[] files) throws IOException {
         if (files.length < 1) {

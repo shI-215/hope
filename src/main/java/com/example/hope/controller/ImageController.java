@@ -16,11 +16,16 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/image")
 public class ImageController {
+    private JsonResult jsonResult = new JsonResult();
 
     @Autowired
     private ImageService imageService;
-    private JsonResult jsonResult = new JsonResult();
 
+    /**
+     * 查询所有图片
+     *
+     * @return
+     */
     @GetMapping("/lookAllImage")
     public JsonResult lookAllImage() {
         List<Image> iList = imageService.lookAllImage();
@@ -32,6 +37,12 @@ public class ImageController {
         return jsonResult;
     }
 
+    /**
+     * 查看当前用户图片
+     *
+     * @param uId
+     * @return
+     */
     @GetMapping("/lookMyImage")
     public JsonResult lookMyImage(@RequestParam int uId) {
         List<Image> iList = imageService.lookMyImage(uId);
@@ -43,6 +54,12 @@ public class ImageController {
         return jsonResult;
     }
 
+    /**
+     * 查看当前用户的所有图片
+     *
+     * @param uId
+     * @return
+     */
     @GetMapping("/lookAllMyImage")
     public JsonResult lookAllMyImage(@RequestParam int uId) {
         List<Image> iList = imageService.lookAllMyImage(uId);

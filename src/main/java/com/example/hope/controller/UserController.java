@@ -18,6 +18,12 @@ public class UserController {
     private UserService userService;
     private JsonResult jsonResult = new JsonResult();
 
+    /**
+     * 用户登录
+     *
+     * @param user
+     * @return
+     */
     @PostMapping("/login")
     public JsonResult Login(@RequestBody User user) {
         System.out.println(user.toString());
@@ -34,6 +40,12 @@ public class UserController {
         return jsonResult;
     }
 
+    /**
+     * 退出登录
+     *
+     * @param user
+     * @return
+     */
     @PostMapping("/loginOut")
     public JsonResult loginOut(@RequestBody User user) {
         System.out.println(user.toString());
@@ -46,6 +58,12 @@ public class UserController {
         return jsonResult;
     }
 
+    /**
+     * 用户注册
+     *
+     * @param user
+     * @return
+     */
     @PostMapping("/register")
     public JsonResult Register(@RequestBody User user) {
         boolean isRegister = userService.register(user);
@@ -57,6 +75,12 @@ public class UserController {
         return jsonResult;
     }
 
+    /**
+     * 找回密码
+     *
+     * @param user
+     * @return
+     */
     @PostMapping("/find")
     public JsonResult Find(@RequestBody User user) {
         boolean isFind = userService.find(user);
@@ -68,6 +92,13 @@ public class UserController {
         return jsonResult;
     }
 
+    /**
+     * 密码修改
+     *
+     * @param phone
+     * @param newPhone
+     * @return
+     */
     @PostMapping("/alterPhone")
     public JsonResult AlterPhone(@RequestParam("phone") String phone, @RequestParam("newPhone") String newPhone) {
         Map<String, Object> map = new HashMap<>();
@@ -82,6 +113,12 @@ public class UserController {
         return jsonResult;
     }
 
+    /**
+     * 用户信息修改
+     *
+     * @param user
+     * @return
+     */
     @PostMapping("/alterUser")
     public JsonResult AlterUser(@RequestBody User user) {
         boolean isAlterUser = userService.alterUser(user);

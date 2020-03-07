@@ -22,6 +22,8 @@ import java.util.Map;
 @RequestMapping(value = "/active")
 public class ActiveController {
 
+    private JsonResult jsonResult = new JsonResult();
+
     @Autowired
     private ImageService imageService;
     @Autowired
@@ -29,8 +31,12 @@ public class ActiveController {
     @Autowired
     private HelpService helpService;
 
-    private JsonResult jsonResult = new JsonResult();
-
+    /**
+     * 活动发布
+     *
+     * @param active
+     * @return
+     */
     @PostMapping("/release")
     public JsonResult Release(@RequestBody Active active) {
         System.out.println(active.toString());
@@ -64,6 +70,12 @@ public class ActiveController {
         return jsonResult;
     }
 
+    /**
+     * 删除活动
+     *
+     * @param actId
+     * @return
+     */
     @GetMapping("/delete")
     public JsonResult Delete(@RequestParam int actId) {
         System.out.println(actId);
@@ -76,6 +88,13 @@ public class ActiveController {
         return jsonResult;
     }
 
+    /**
+     * 活动查看
+     *
+     * @param actId
+     * @param userId
+     * @return
+     */
     @GetMapping("/look")
     public JsonResult Look(@RequestParam("actId") int actId, @RequestParam("userId") int userId) {
         Active active = activeService.look(actId);
@@ -101,6 +120,11 @@ public class ActiveController {
         return jsonResult;
     }
 
+    /**
+     * 查看所有活动
+     *
+     * @return
+     */
     @GetMapping("/lookAll")
     public JsonResult LookAll() {
         List<Active> aList = activeService.lookAll();
@@ -112,6 +136,9 @@ public class ActiveController {
         return jsonResult;
     }
 
+    /**
+     * 待开发项
+     */
     //用户推送
     @GetMapping("/push")
     public void push() {

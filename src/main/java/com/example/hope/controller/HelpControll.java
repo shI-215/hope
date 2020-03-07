@@ -25,6 +25,13 @@ public class HelpControll {
     @Autowired
     private HelpService helpService;
 
+    /**
+     * 活动报名
+     *
+     * @param actId
+     * @param userId
+     * @return
+     */
     @PostMapping("/join")
     public JsonResult join(@RequestParam("actId") int actId, @RequestParam("userId") int userId) {
         Help help = new Help();
